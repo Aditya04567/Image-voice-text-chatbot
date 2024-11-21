@@ -107,7 +107,7 @@ The chatbot will read its responses aloud when this feature is enabled.
 
 ## License
 
-This project is licensed under the MIT License. See the `[LICENSE](https://opensource.org/license/MIT)` file for more details.
+This project is licensed under the MIT License. See the [LICENSE](https://opensource.org/license/MIT) file for more details.
 
 ---
 ``` 
