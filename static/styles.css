@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background-color: rgb(238, 231, 231);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 80%;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #2d4763;
+    color: white;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #ffffff;
+    color: black;
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.input-area form {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.input-area input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    margin-right: 10px;
+}
+
+.input-area button {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#image-preview {
+    max-width: 300px; /* You can adjust this width as needed */
+    margin: 10px 0; /* Add vertical margin */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: flex-start; /* Align items to the right */
+}
+
+#image-preview img {
+    max-width: 100%; /* Ensure the image fits within the container */
+    border-radius: 5px;
+    margin-left: auto; /* Push the image to the right */
+}
+
+.options {
+    text-align: center;
+    padding: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gemini AI Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div id="chat-container">
+            <div id="chat-messages" class="chat-messages">
+                <!-- Existing messages will be here -->
+                <div id="image-preview" style="display:none;">
+                    <img id="uploaded-image" src="" alt="Uploaded Image">
+                </div>
+            </div>
+
+            <div class="input-area">
+                <label for="speech-toggle">
+                    <input type="checkbox" id="speech-toggle">
+                    Enable Speech Recognition and Text-to-Speech
+                </label>
+                <form id="text-form" onsubmit="return false;">
+                    <input type="text" id="message-input" placeholder="Type your message...">
+                    <button id="send-text-btn">Send</button>
+                </form>
+
+                <form id="image-form" onsubmit="return false;" enctype="multipart/form-data">
+                    <input type="file" id="image-input" accept="image/*">
+                    <input type="text" id="image-prompt" placeholder="Optional image description">
+                    <button id="send-image-btn">Upload Image</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addMessage(message, type) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', type);
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        let speechEnabled = false;
+        let recognition; // Declare recognition variable globally
+        let isRecognizing = false; // Flag to manage recognition state
+        let isMessageBeingSent = false; // Flag to track if a message is being sent
+
+        document.getElementById('speech-toggle').addEventListener('change', function () {
+            speechEnabled = this.checked;
+            if (speechEnabled) {
+                startSpeechRecognition();
+            } else {
+                stopSpeechRecognition(); // Stop recognition when toggled off
+            }
+        });
+
+        function startSpeechRecognition() {
+            if (isRecognizing) return; // Prevent starting multiple recognitions
+
+            recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+
+            recognition.onstart = function () {
+                isRecognizing = true; // Set flag when recognition starts
+            };
+
+            recognition.onresult = function (event) {
+                const message = event.results[0][0].transcript;
+                addMessage(message, 'user-message');
+                // Call sendTextMessage with the recognized message
+                sendTextMessagefromSR(message); // Send the recognized message
+            };
+
+            recognition.onerror = function (event) {
+                console.error('Speech recognition error:', event.error);
+            };
+
+            recognition.onend = function () {
+                isRecognizing = false; // Reset flag when recognition ends
+                // Optionally restart recognition here if desired
+                // startSpeechRecognition();
+            };
+
+            recognition.start(); // Start recognition
+        }
+
+        function stopSpeechRecognition() {
+            if (recognition) {
+                recognition.stop(); // Stop recognition
+            }
+            isRecognizing = false; // Reset flag
+        }
+
+        // document.getElementById('send-text-btn').addEventListener('click', function () {
+        //     sendTextMessage();
+        // });
+
+        document.getElementById('message-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendTextMessage();
+        });
+
+        document.getElementById('send-image-btn').addEventListener('click', function () {
+            sendImageMessage();
+        });
+
+        function sendTextMessage() {
+            const messageInput = document.getElementById('message-input');
+            let message = messageInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user-message');
+
+            const formData = new FormData();
+            formData.append('message', message);
+
+            fetch('/chat', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    addMessage(data.response, 'bot-message');
+                    if (speechEnabled) {speakText(data.response);};
+                    messageInput.value = ''; // Clear input after sending
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    addMessage('Error sending message', 'bot-message');
+                });
+        }
+
+        function sendTextMessagefromSR(msg) {
+
+            const formData = new FormData();
+            formData.append('message', msg);
+
+            fetch('/chat', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    addMessage(data.response, 'bot-message');
+                    speakText(data.response);
+                    msg = ''; // Clear input after sending
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    addMessage(error, 'bot-message');
+                });
+        }
+
+        function speakText(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.onend = function () {
+                // Restart speech recognition after TTS finishes
+                if (speechEnabled) {
+                    startSpeechRecognition();
+                }
+            };
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Event listeners for sending messages and images
+        // document.getElementById('send-text-btn').addEventListener('click', sendTextMessage);
+
+        document.getElementById('message-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendTextMessage();
+        });
+
+        function sendImageMessage() {
+            stopSpeechRecognition();
+            const imageInput = document.getElementById('image-input');
+            const imagePrompt = document.getElementById('image-prompt');
+            const file = imageInput.files[0];
+
+            if (!file) {
+                // alert('Please select an image');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('prompt', imagePrompt.value || 'Describe this image in detail');
+
+            addMessage('Analyzing image...', 'bot-message');
+
+            fetch('/chat', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Remove loading message
+                    const chatMessages = document.getElementById('chat-messages');
+                    chatMessages.removeChild(chatMessages.lastChild);
+
+                    // Show image preview
+                    const imagePreview = document.getElementById('image-preview');
+                    const uploadedImage = document.getElementById('uploaded-image');
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        uploadedImage.src = event.target.result;
+                        imagePreview.style.display = 'block';
+                        // addMessage('Image uploaded:', 'user-message'); // Add a message indicating the image was uploaded
+                        chatMessages.appendChild(imagePreview); // Append image preview to chat messages
+                    };
+                    reader.readAsDataURL(file);
+
+                    // Add response
+                    addMessage(data.response, 'bot-message');
+                    if (speechEnabled) {speakText(data.response);};
+                    imageInput.value = ''; // Clear image input after sending
+                    imagePrompt.value = ''; // Clear prompt input after sending
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    addMessage('Error analyzing image', 'bot-message');
+                });
+
+            // Reset form
+            imageInput.value = '';
+            imagePrompt.value = '';
+        }
+
+        // Event listeners for sending messages and images
+        document.getElementById('send-text-btn').addEventListener('click', function () {
+            sendTextMessage();
+        });
+
+        document.getElementById('message-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendTextMessage();
+        });
+
+        document.getElementById('send-image-btn').addEventListener('click', function () {
+            sendImageMessage();
+        });
+
+        document.getElementById('send-image-btn').addEventListener('click', sendImageMessage);
+    </script>
+</body>
+
+</html>

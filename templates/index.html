@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Additional styling to merge the existing content and new design */
+
+        /* Body styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+        }
+
+        /* Container for chatbot greeting */
+        .container {
+            height: 500px;
+
+        }
+
+        .container2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .container h5 {
+            margin: 0;
+        }
+
+
+
+        .container h5 {
+            color: #5f6368;
+            /* Muted gray */
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            text-decoration: none;
+            background-color: #000000;
+            /* Blue button */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-top: 20px;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #151616;
+        }
+
+        /* Greeting design */
+        .greeting {
+            font-size: 36px;
+            /* Adjust font size */
+            font-weight: 400;
+            /* Normal font weight */
+            background: linear-gradient(90deg, #4285F4, #EA4335);
+            /* Gradient color */
+            background-clip: text;
+            /* Apply the background to the text */
+            -webkit-background-clip: text;
+            /* Webkit compatibility for background clipping */
+            color: transparent;
+            /* Make text transparent to show gradient */
+            text-align: center;
+            /* Center align the text */
+            margin: 30px 0 40px;
+            /* Combine margin-top and margin-bottom for conciseness */
+        }
+
+
+        /* Input container styling */
+        .input-container {
+            display: flex;
+            align-items: center;
+            width: 60%;
+            /* Adjust width */
+            border-radius: 24px;
+            /* Rounded edges */
+            background-color: #d1d5df;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+        }
+
+        .input-container input {
+            border: none;
+            background: none;
+            flex-grow: 1;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            outline: none;
+            color: #5f6368;
+        }
+
+        .input-container input::placeholder {
+            color: #c2c4c6;
+        }
+
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            margin-left: 10px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .icon-btn img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Chatbot Greeting -->
+    <div class="container">
+        <div class="container2">
+            <div class="greeting">Hello, Aditya</div>
+            <h5>
+                <center>Welcome to the chatting room</center>
+            </h5>
+            <div class="options">
+                <a href="{{ url_for('chat') }}" class="btn">Start Chatting</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Design -->
+
+    <!-- <div class="input-container">
+        <input type="text" placeholder="Ask Gemini" />
+        <button class="icon-btn">
+            <img src="microphone-icon.png" alt="Microphone" />
+        </button>
+        <button class="icon-btn">
+            <img src="image-icon.png" alt="Image Upload" />
+        </button>
+    </div> -->
+</body>
+
+</html>

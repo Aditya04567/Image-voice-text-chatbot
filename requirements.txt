@@ -1,0 +1,6 @@
+flask
+google-generativeai
+Pillow
+SpeechRecognition
+pyttsx3
+gunicorn
