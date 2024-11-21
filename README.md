@@ -104,29 +104,10 @@ The chatbot will read its responses aloud when this feature is enabled.
 
 ---
 
-## Notes
-
-- Ensure a stable internet connection as the chatbot relies on external API calls.
-- Use the latest version of Python and required packages for optimal performance.
-
----
-
-## Contributing
-
-Contributions are welcome! To suggest improvements or new features:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-name`).
-3. Make changes and commit them.
-4. Submit a pull request for review.
-
-Include tests for any new functionality.
-
----
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+This project is licensed under the MIT License. See the `[LICENSE](https://opensource.org/license/MIT)` file for more details.
 
 ---
 ``` 
