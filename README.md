@@ -4,6 +4,10 @@
 
 The Image-voice-text-chatbot is a conversational AI application that leverages Google's Gemini API for advanced text and image processing. Users can engage with the chatbot through text input or image uploads, and receive intelligent responses and detailed descriptions. This project aims to provide an interactive and user-friendly experience for exploring AI capabilities.
 
+## Presentation
+
+[Image Voice Text AI Chatbot.pdf](https://github.com/user-attachments/files/18048787/Image.Voice.Text.AI.Chatbot.pdf)
+
 ## Features
 
 - **Text-based Chat**: Users can send messages and receive instant responses from the chatbot.
