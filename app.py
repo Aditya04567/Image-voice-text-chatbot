@@ -3,7 +3,7 @@ from chatbot_core import GeminiChatbot
 import traceback
 
 # IMPORTANT: Replace with a secure method in production
-API_KEY = "AIzaSyCLbONUJS-ugWabNsJcorKJ-3tVHrCqCUM"
+API_KEY = "AIzaSyBREmi4_ztYM9jvnRmQAB4LUoWrx2nIBAU"
 
 app = Flask(__name__)
 chatbot = GeminiChatbot(API_KEY)
@@ -54,3 +54,5 @@ def chat():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+    

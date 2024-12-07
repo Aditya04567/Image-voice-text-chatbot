@@ -9,6 +9,11 @@ body {
     height: 100vh;
 }
 
+.formatted-response {
+    white-space: pre-wrap; /* Preserves new lines and spaces */
+    font-family: monospace; /* Optional: Use a monospace font for better alignment */
+}
+
 .container {
     width: 100%;
     max-width: 600px;
