@@ -89,7 +89,8 @@ body {
 }
 
 #image-preview {
-    max-width: 300px; /* You can adjust this width as needed */
+    max-width: 200px;
+    max-height: 100px; /* You can adjust this width as needed */
     margin: 10px 0; /* Add vertical margin */
     display: flex; /* Use flexbox for alignment */
     justify-content: flex-start; /* Align items to the right */
