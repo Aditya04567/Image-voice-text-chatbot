@@ -17,7 +17,7 @@ logging.basicConfig(
 )
 
 # API Configuration (IMPORTANT: Replace with secure method in production)
-API_KEY = "your api key"
+API_KEY = "your_api_key"
 
 
 class GeminiChatbot:
