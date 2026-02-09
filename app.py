@@ -3,7 +3,7 @@ from chatbot_core import GeminiChatbot
 import traceback
 
 # IMPORTANT: Replace with a secure method in production
-API_KEY = "AIzaSyBREmi4_ztYM9jvnRmQAB4LUoWrx2nIBAU"
+API_KEY = "your_api_key"
 
 app = Flask(__name__)
 chatbot = GeminiChatbot(API_KEY)
