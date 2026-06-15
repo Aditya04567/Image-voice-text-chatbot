@@ -1,8 +1,8 @@
-# Image Voice Text AI Chatbot
+# AI-Powered Multimodal Assistant
 
 ## Overview
 
-The Image-voice-text-chatbot is a conversational AI application that leverages Google's Gemini API for advanced text and image processing. Users can engage with the chatbot through text input or image uploads, and receive intelligent responses and detailed descriptions. This project aims to provide an interactive and user-friendly experience for exploring AI capabilities.
+The AI-Powered Multimodal Assistant is a conversational AI application that leverages Google's Gemini API for advanced text and image processing. Users can engage with the chatbot through text input or image uploads, and receive intelligent responses and detailed descriptions. This project aims to provide an interactive and user-friendly experience for exploring AI capabilities.
 
 ## Presentation
 
@@ -46,8 +46,8 @@ Follow these steps to set up the project locally:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/Aditya04567/Image-voice-text-chatbot.git
-   cd Image-voice-text-chatbot
+   git clone https://github.com/Aditya04567/AI-Powered Multimodal Assistant.git
+   cd AI-Powered Multimodal Assistant
 
 2. **Install dependencies**:
 
